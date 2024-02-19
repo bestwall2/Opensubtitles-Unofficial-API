@@ -1,20 +1,20 @@
 const express = require("express");
-const cors = require("cors");
 const app = express();
 
-const PORT = 3000;
+// Port configuration
+const PORT = process.env.PORT || 3000;
 
-// Opensubtittles API search
-
+// Routes
 let search = require("./routes/search");
-app.use(search);
-
-// Result page
+app.use('/search', search);
 
 let result = require("./routes/result");
-app.use(result);
+app.use('/result', result);
 
+// Static file serving
 app.use(express.static("dist"));
-app.use(cors());
 
-app.listen(PORT);
+// Start server
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
+});
